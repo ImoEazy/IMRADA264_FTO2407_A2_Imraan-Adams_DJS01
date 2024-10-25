@@ -6,37 +6,40 @@
  */
 
  //Given Parameters
-const velocityKmh = 10000; // velocity (km/h) changed const
+const velocityKmh = 10000 // velocity (km/h) changed const
 const accelerationMps2 = 3; // acceleration (m/s^2) 
 const timeInSeconds = 3600; // seconds (1 hour)
 const initialDistanceKm = 0; // distance (km)
-const remainingFuelKguel = 5000; // remaining fuel (kg)
-const fuelBurnRateKgPerS = 0.5; // fuel burn rate (kg/s)
+const remainingFuelKguel = 500; // remaining fuel (kg)
+const fuelBurnRateKgPerS = 1; // fuel burn rate (kg/s)
 
 //function for veocity calc
 //create const calcNewvelocity
 const calcNewVelocity = (InitialVelocity, acceleration, time) => {
-if (typeof initialVelocity !== 'number' || typeof acceleration !== 'number' || typeof time !== 'number') {
+if (typeof InitialVelocity !== 'number' || typeof acceleration !== 'number' || typeof time !== 'number') {
   throw new Error('Invalid input: velocity, acceleration, and time must be numbers.');
 
 }
-return initialVelocity + (acceleration * time);
+return InitialVelocity + (acceleration * time);
 
 };
 
+//calculate new value outputs
+try {
+  const newDistanceKm = initialDistanceKm + (velocityKmh * (timeInSeconds / 3600)); // Convert time to hours for km/h
+  const remainingFuelKg = fuelBurnRateKgPerS * timeInSeconds; // Calculate remaining fuel
+  const newVelocityKmh = calcNewVelocity(velocityKmh, accelerationMps2 * 3.6, timeInSeconds); // Convert acceleration to km/h^2
 
-const d2 = d + (vel*time) //calcultes new distance
-const rf = fbr*time //calculates remaining fuel
-const vel2 = calcNewVel(acc, vel, time) //calculates new velocity based on acceleration
+  console.log(`Corrected New Velocity: ${newVelocityKmh.toFixed(2)} km/h`);
+  console.log(`Corrected New Distance: ${newDistanceKm.toFixed(2)} km`);
+  console.log(`Corrected Remaining Fuel: ${remainingFuelKg.toFixed(2)} kg`);
+} catch (error) {
+  console.error(`Error: ${error.message}`);
+}
 
-// Pick up an error with how the function below is called and make it robust to such errors
-//calcNewVel = (vel, acc, time) => { 
-  //return vel + (acc*time)
-//}
 
-console.log(`Corrected New Velocity: ${vel2} km/h`);
-console.log(`Corrected New Distance: ${d2} km`);
-console.log(`Corrected Remaining Fuel: ${rf} kg`);
+
+
 
 
 
