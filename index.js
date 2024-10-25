@@ -10,17 +10,19 @@ const velocityKmh = 10000 // velocity (km/h) changed const
 const accelerationMps2 = 3; // acceleration (m/s^2) 
 const timeInSeconds = 3600; // seconds (1 hour)
 const initialDistanceKm = 0; // distance (km)
-const remainingFuelKguel = 500; // remaining fuel (kg)
-const fuelBurnRateKgPerS = 1; // fuel burn rate (kg/s)
+const remainingFuelKgval = 5000; // remaining fuel (kg)//changed to 5000 to 500
+const fuelBurnRateKgPerS = 1; // fuel burn rate (kg/s)//changed to 0.5 to 1
+
+
 
 //function for veocity calc
 //create const calcNewvelocity
-const calcNewVelocity = (InitialVelocity, acceleration, time) => {
+const calcNewVelocity = (InitialVelocity, acceleration, time) => {//parameters added
 if (typeof InitialVelocity !== 'number' || typeof acceleration !== 'number' || typeof time !== 'number') {
-  throw new Error('Invalid input: velocity, acceleration, and time must be numbers.');
+  throw new Error('Invalid. Velocity, acceleration, and time are not numbers.');//displays error msg when no numbers for parameters
 
 }
-return InitialVelocity + (acceleration * time);
+return InitialVelocity + (acceleration * time);// return initial velocity + scceleration * time value
 
 };
 
@@ -36,6 +38,10 @@ try {
 } catch (error) {
   console.error(`Error: ${error.message}`);
 }
+
+
+
+
 
 
 
