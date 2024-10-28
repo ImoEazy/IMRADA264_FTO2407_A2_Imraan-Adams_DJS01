@@ -27,6 +27,7 @@
 //console.log(`Corrected Remaining Fuel: ${rf} kg`);
 
 // Given Parameters
+//created object with properties 
 const spacecraft = {
   vel: 10000, // velocity (km/h)
   acc: 3,     // acceleration (m/s^2)
@@ -42,19 +43,24 @@ const kmhToMs = (kmh) => kmh * 1000 / 3600;
 
 // Function to calculate new velocity
 const calcNewVel = ({ vel, acc, time }) => {
-  const initialVelMs = kmhToMs(vel); // Convert initial velocity to m/s
+  const initialVelMs = kmhToMs(vel); //converts initialvelocity to m/s using const unit converson
+  
   return (initialVelMs + (acc * time)) * 3600 / 1000; // Convert back to km/h times 3.6
 };
 
+
 // Function to calculate new distance
 const calcNewDistance = ({ vel, time }) => {
-  const initialVelMs = kmhToMs(vel); // Convert velocity to m/s
-  return (initialVelMs * time) / 1000; // Convert to km
+  const initialVelMs = kmhToMs(vel); // Convert velocity to m/s using unit converstion const
+  return (initialVelMs * time) / 1000; // converts to kilometers
+  
 };
 
-// Function to calculate remaining fuel for error handling
-const calcRemainingFuel = ({ fbr, time, fuel }) => {
+// Function to calculate remaining fuel and added error handling for user
+const calcRemainingFuel = ({ fbr, time, fuel}) => {
+
   const remainingFuel = fuel - (fbr * time);
+  
   if (remainingFuel < 0) {//if fuel number below zero
     throw new Error("insuffecient fuel level");
   }
@@ -63,41 +69,25 @@ const calcRemainingFuel = ({ fbr, time, fuel }) => {
 
 // Perform calculations
 try {
-  const newVelocity = calcNewVel(spacecraft);// calculates the new velocity
-  const newDistance = calcNewDistance(spacecraft);// calculates new distance
-  const remainingFuel = calcRemainingFuel(spacecraft);// Calculates the reemainig fuel
+  // calculates the new velocity of craft
+  const newVelocity = calcNewVel(spacecraft);
+  //calculates ne distance
+  const newDistance = calcNewDistance(spacecraft);
+  //calcuattes the fuel remainig
+  const remainingFuel = calcRemainingFuel(spacecraft);
 
   console.log(`Corrected New Velocity: ${newVelocity.toFixed(2)} km/h`);
   console.log(`Corrected New Distance: ${newDistance.toFixed(2)} km`);
   console.log(`Corrected Remaining Fuel: ${remainingFuel.toFixed(2)} kg`);
+
 } catch (error) {
   console.error(error.message);
 }
 
 
-
-
-
-
-
-
-
-//Key Issues:
-//Unit Mismatch: The velocity is in km/h, while acceleration is in m/s². We need to convert the velocity to m/s for consistent calculations.
-//Function Definition: The calcNewVel function is called before it's defined. We should define it first.
-//Calculations: The distance calculation needs to consider the new velocity correctly after conversion.
-
-//Changes Made:
-//Unit Conversion: A separate function kmhToMs is added to convert velocity from km/h to m/s.
-//Function Order: The calcNewVel, calcNewDistance, and calcRemainingFuel functions are defined before they are called.
-//Parameter Destructuring: Each function uses parameter destructuring for clarity and ease of access.
-//Error Handling: Added error handling for the fuel calculation to ensure it doesn't go negative.
-//Expected Output
-//This refactored code will give you the corrected new velocity, distance, and remaining fuel while ensuring proper unit handling and clear function structure
-
-
-
-
+//claculate velocity
+//calcute fuel
+//calculated distance traveeld
 
 
 
